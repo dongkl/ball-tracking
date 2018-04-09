@@ -38,8 +38,8 @@ pts = deque(maxlen=args["buffer"])
 # to the webcam
 if not args.get("video", False):
 #	camera = cv2.VideoCapture(0)
-	vs = VideoStream(src=0).start()
-	# vs = VideoStream(usePiCamera=True).start()
+#	vs = VideoStream(src=0).start()
+	vs = VideoStream(usePiCamera=True).start()
 	time.sleep(2.0)
 
 # otherwise, grab a reference to the video file
@@ -63,7 +63,7 @@ while True:
 			break
 	# resize the frame, blur it, and convert it to the HSV
 	# color space
-	frame = imutils.resize(frame, width=600)
+#	frame = imutils.resize(frame, width=600)
 	# blurred = cv2.GaussianBlur(frame, (11, 11), 0)
 	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 

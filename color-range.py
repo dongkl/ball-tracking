@@ -75,8 +75,8 @@ def main():
         else:
             frame_to_thresh = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     else:
-	vs = VideoStream(src=0).start()
-#	vs = VideoStream(usePiCamera=True).start()
+#	vs = VideoStream(src=0).start()
+	vs = VideoStream(usePiCamera=True).start()
 	time.sleep(2.0)
 
     setup_trackbars(range_filter)
@@ -88,7 +88,7 @@ def main():
 #            if not ret:
 #                break
             image = vs.read()
-#            image = imutils.rotate(image, angle=90)
+            image = imutils.rotate(image, angle=90)
 
             if range_filter == 'RGB':
                 frame_to_thresh = image.copy()
