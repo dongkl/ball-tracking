@@ -29,8 +29,8 @@ if args.get("video", False):
 else:
 #	greenLower = (51, 205, 158)
 #	greenUpper = (90, 255, 255)
-	greenLower = (30, 63, 118)	#tennis ball in sunlight
-	greenUpper = (58, 255, 255)
+	greenLower = (24, 139, 29)	#tennis ball in sunlight
+	greenUpper = (68, 255, 255)
 
 pts = deque(maxlen=args["buffer"])
 
@@ -39,24 +39,26 @@ pts = deque(maxlen=args["buffer"])
 if not args.get("video", False):
 #	camera = cv2.VideoCapture(0)
 #	vs = VideoStream(src=0).start()
-	vs = VideoStream(usePiCamera=True).start()
-	time.sleep(2.0)
+#	vs = VideoStream(usePiCamera=True).start()
+	vs = VideoStream(usePiCamera=True, resolution=(640,480), framerate=20).start()
+	time.sleep(0.5)
 
 # otherwise, grab a reference to the video file
 else:
 	camera = cv2.VideoCapture(args["video"])
-	
+
 
 # keep looping
 while True:
-	
+
 	if not args.get("video", False):
 		frame = vs.read()
+		frame = imutils.rotate(frame, angle=90)
 
 	else:
 		# grab the current frame
 		(grabbed, frame) = camera.read()
-	
+
 		# if we are viewing a video and we did not grab a frame,
 		# then we have reached the end of the video
 		if args.get("video") and not grabbed:
@@ -66,7 +68,7 @@ while True:
 #	frame = imutils.resize(frame, width=600)
 	# blurred = cv2.GaussianBlur(frame, (11, 11), 0)
 	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-
+	
 	# construct a mask for the color "green", then perform
 	# a series of dilations and erosions to remove any small
 	# blobs left in the mask
